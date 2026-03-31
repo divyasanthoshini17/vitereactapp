@@ -1,58 +1,45 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Counter from './Counter.jsx'
-import Todolist from './Todolist.jsx'
-import Recipe from './Recipe.jsx'
-import Products from './Products.jsx'
-import ProductDetails from './ProductDetails.jsx'
-import Reciperouting from './Reciperouting.jsx'
-import RecipeDetails from './RecipeDetails.jsx'
+import React from "react";
+import { createRoot } from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
-// const router= createBrowserRouter([
-//     {
-//         path:"/",
-//         element:<App></App>,
-//         children:[
-//             {
-//                 path:"/counter",
-//                 element:<Counter></Counter>
-//             },
-//             {
-//                 path:"/todolist",
-//                 element:<Todolist></Todolist>
-//             },
-//             {
-//                 path:"/recipe",
-//                 element:<Recipe></Recipe>
-//             },
-//             {
-//                 path:"/products",
-//                 element:<Products></Products>
-//             },
-//             {
-//                 path:"/productDetails/:id",
-//                 element:<ProductDetails></ProductDetails>
-//             },
-//             {
-//                 path:"/reciperouting",
-//                 element:<Reciperouting></Reciperouting>
-//             },
-//             {
-//                 path:"/recipeDetails/:id",
-//                 element:<RecipeDetails></RecipeDetails>
-//             },
+import App from "./App";
+import Products from "./Products";
+import ProductDetails from "./ProductDetails";
+import CartWrapper from "./CartWrapper";
+import "./index.css";
 
-//         ]
-//     }
-// ])
+// ✅ Routing only
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <h1>Something went wrong 🚨</h1>,
+    children: [
+      {
+        index: true,
+        element: <Products />,
+      },
+      {
+        path: "products",
+        element: <Products />,
+      },
+      {
+        path: "productDetails/:id",
+        element: <ProductDetails />,
+      },
+      {
+        path: "cart",
+        element: <CartWrapper />,
+      },
+    ],
+  },
+]);
 
-// createRoot(document.getElementById('root')).render( 
-//     <StrictMode>
-//         <RouterProvider router={router}/>
-//     </StrictMode>
-// )
-
-createRoot(document.getElementById('root')).render(<App/>)
+createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);

@@ -1,70 +1,75 @@
-import Counter from "./Counter"
-import Todo from "./todo"
-import Recipe from "./Recipe"
-import Navbar from "./Navbar"
-import Hero from "./Hero"
-import Menu from "./Menu"
-import Footer from "./Footer"
-import Todolist from "./Todolist"
-import TodoUI from "./TodoUI"
-import Parent from "./Parent"
-import Child from "./Child"
-import React from "react";
-import { Link,Outlet } from "react-router-dom"
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Navbarc from "./Navbar_Rcompo";
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
 
-  // const [parentMsg,setParentMsg] = React.useState("");
-  // const [childMsg,setChildMsg] = React.useState("");
-  const [messages,setMessages] = React.useState([]);
+  // ➕ Add to cart
+  const addToCart = (product) => {
+    const existing = cartItems.find((item) => item.product.id === product.id);
 
-function sendParentMsg(text){
-  setMessages(prev => [...prev,{sender:"parent",text}])
-}
+    if (existing) {
+      setCartItems(
+        cartItems.map((item) =>
+          item.product.id === product.id
+            ? { ...item, qty: item.qty + 1 }
+            : item
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { product, qty: 1 }]);
+    }
+  };
 
-function sendChildMsg(text){
-  setMessages(prev => [...prev,{sender:"child",text}])
-}
+  // ❌ Remove
+  const removeFromCart = (index) => {
+    const updated = [...cartItems];
+    updated.splice(index, 1);
+    setCartItems(updated);
+  };
+
+  // ➕ Increase
+  const increaseQty = (id) => {
+    setCartItems(
+      cartItems.map((item) =>
+        item.product.id === id
+          ? { ...item, qty: item.qty + 1 }
+          : item
+      )
+    );
+  };
+
+  // ➖ Decrease
+  const decreaseQty = (id) => {
+    setCartItems(
+      cartItems
+        .map((item) =>
+          item.product.id === id
+            ? { ...item, qty: item.qty - 1 }
+            : item
+        )
+        .filter((item) => item.qty > 0)
+    );
+  };
 
   return (
     <>
-      
-     <div className="container">
-      <Parent 
-        messages={messages}
-        sendToChild={sendParentMsg}
+      <Navbarc
+        cartcount={cartItems.reduce((sum, item) => sum + item.qty, 0)}
       />
 
-      <Child 
-        messages={messages}
-        sendToParent={sendChildMsg}
+      <Outlet
+        context={{
+          cartItems,
+          addToCart,
+          removeFromCart,
+          increaseQty,
+          decreaseQty,
+        }}
       />
-     </div>
-     {/* <Parent 
-        message={parentMsg}
-        sendToChild={setParentMsg}
-        childmessage={childMsg}
-      />
-
-      <Child 
-        message={parentMsg}
-        sendToParent={setChildMsg}
-      /> */}
-
-      {/* <div>
-        <h1>hey</h1>
-        <Link to="/counter">Counter</Link><br></br>
-        <Link to="/todolist">Todo list</Link><br></br>
-        <Link to="/recipe">Recipes</Link><br></br>
-        <Link to="/products">Products</Link>
-        <Link to="/reciperouting">Reciperouting</Link>
-        <Outlet></Outlet>
-        
-      </div> */}
-
     </>
-  )
+  );
 }
 
 export default App;
- 
