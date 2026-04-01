@@ -1,5 +1,6 @@
-import React from "react";
+//child
 
+import React from "react";
 
 function Child({messages,sendToParent}){
     const [text,setText]=React.useState("");

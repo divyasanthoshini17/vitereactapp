@@ -1,35 +1,3 @@
-// import React from "react";
-// import Child from "./Child";
-// function Parent(){
-//     const [text,setText]=React.useState("");
-//      function handleChange(e){
-//         setText(e.target.value);
-//     }
-
-//     const [message,setMessage]=React.useState("");
-//     function handleSend(e){
-//         setMessage(text);
-//     }
-
-//     const [childmessage,setChildmessage] = React.useState("");
-//     function handleChildMessage(childmessage){
-//         setChildmessage(childmessage);
-//     }
-
-//     return(
-//         <div className="parent">
-//             <h1>Parent Component</h1>
-//             <input type="text" placeholder="Enter message" onChange={handleChange}  /><br></br><br></br>
-//             <button onClick={handleSend} >Send to Child</button>
-//             <p>Parent message: {message}</p>
-//             <p>Child message: {childmessage}</p>
-//             <Child message={message} sendToParent={handleChildMessage}/>
-//         </div>
-//     )
-// }
-// export default Parent;
-
-
 import React from "react";
 
 function Parent({messages,sendToChild}){
