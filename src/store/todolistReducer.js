@@ -1,3 +1,4 @@
+//tolistreducer
 import { AddTodo, DelTodo } from "./constants";
 
 const initialstate={todos:["go to goa", "eat biriyani"]}

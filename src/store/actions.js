@@ -1,5 +1,6 @@
-import { INC, DEC, AddTodo, DelTodo } from "./constants";
+//actions
 
+import { INC, DEC, AddTodo, DelTodo } from "./constants";
 
 export function incAction(){
     return {type: INC};

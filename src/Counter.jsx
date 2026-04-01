@@ -1,3 +1,5 @@
+//counter
+
 import React, { useEffect } from "react"
 import { connect } from "react-redux";
 import { decAction, incAction  } from "./store/actions";
