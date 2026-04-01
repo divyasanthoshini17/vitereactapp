@@ -1,3 +1,5 @@
+//counterReducer
+
 import { INC,DEC } from "./constants";
 
 const initialState={count:0};
